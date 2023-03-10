@@ -69,7 +69,21 @@ const register = async (req, res) => {
 };
 
 const getDetailUserbyID = async (req, res) => {
-  res.send("detailUser success");
+  const { id } = req.params;
+  try {
+    const user = await model.users.findUnique({
+      where: {
+        id: +id,
+      },
+    });
+    if (!!user) {
+      return successCode(res, user, "successfully get detail user");
+    } else {
+      return failCode(res, user, "user not found");
+    }
+  } catch (error) {
+    errorCode(res, "backend error");
+  }
 };
 
 module.exports = {

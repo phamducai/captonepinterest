@@ -45,9 +45,64 @@ const getImageByName = async (req, res) => {
     return error(res, "backend error");
   }
 };
+const getImageByUserID = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await model.image.findMany({
+      where: {
+        user_id: +id,
+      },
+    });
 
+    if (result.length > 0) {
+      return successCode(res, result, "success get user save image");
+    } else {
+      return failCode(res, result, "user id not found");
+    }
+  } catch (error) {
+    return errorCode(res, "backend error");
+  }
+};
+
+const deleteImageByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    try {
+      const result2 = await model.image_save.delete({
+        where: {
+          image_id: +id,
+        },
+      });
+    } catch (error) {
+    } finally {
+      try {
+        const result1 = await model.comment.deleteMany({
+          where: {
+            image_id: +id,
+          },
+        });
+      } catch (error) {
+      } finally {
+        const result3 = await model.image.delete({
+          where: {
+            id: +id,
+          },
+        });
+        successCode(res, result3, "delete image successfully");
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    const { code } = error;
+    if (code === "P2025") {
+      errorCode(res, "image to delete does not exist");
+    }
+  }
+};
 module.exports = {
   getAllImages,
   getImageByID,
   getImageByName,
+  getImageByUserID,
+  deleteImageByID,
 };
