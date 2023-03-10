@@ -39,7 +39,7 @@ model users {
   password   String       @db.VarChar(255)
   name       String       @db.Char(255)
   age        Int
-  avatar     String       @db.VarChar(255)
+  avatar     String       @db.LongText
   comment    comment[]
   image      image[]
   image_save image_save[]

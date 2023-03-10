@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const { errorCode, failCode, successCode } = require("../config/response");
 const model = new PrismaClient();
 
+// function to get all images
 const getAllImages = async (req, res) => {
   try {
     const getAllImage = await model.image.findMany();
@@ -11,6 +12,7 @@ const getAllImages = async (req, res) => {
   }
 };
 
+// function to get an image by ID
 const getImageByID = async (req, res) => {
   const { id } = req.params;
   try {
@@ -22,7 +24,7 @@ const getImageByID = async (req, res) => {
         users: true,
       },
     });
-    delete image.user_id;
+    delete image.user_id; // remove user_id from the response object
 
     return successCode(res, image, "getImageByID successfully");
   } catch (error) {
@@ -30,6 +32,7 @@ const getImageByID = async (req, res) => {
   }
 };
 
+// function to search for an image by name
 const getImageByName = async (req, res) => {
   const { name } = req.params;
   try {
@@ -45,6 +48,8 @@ const getImageByName = async (req, res) => {
     return error(res, "backend error");
   }
 };
+
+// function to get images saved by a specific user
 const getImageByUserID = async (req, res) => {
   const { id } = req.params;
   try {
@@ -64,33 +69,16 @@ const getImageByUserID = async (req, res) => {
   }
 };
 
+// function to delete an image by ID
 const deleteImageByID = async (req, res) => {
   try {
     const { id } = req.params;
-    try {
-      const result2 = await model.image_save.delete({
-        where: {
-          image_id: +id,
-        },
-      });
-    } catch (error) {
-    } finally {
-      try {
-        const result1 = await model.comment.deleteMany({
-          where: {
-            image_id: +id,
-          },
-        });
-      } catch (error) {
-      } finally {
-        const result3 = await model.image.delete({
-          where: {
-            id: +id,
-          },
-        });
-        successCode(res, result3, "delete image successfully");
-      }
-    }
+    const [result1, result2, result3] = await Promise.all([
+      model.comment.deleteMany({ where: { image_id: +id } }), // delete comments associated with the image
+      model.image_save.delete({ where: { image_id: +id } }), // delete saved instances of the image
+      model.image.delete({ where: { id: +id } }), // delete the image itself
+    ]);
+    successCode(res, result3, "delete image successfully");
   } catch (error) {
     console.log(error);
     const { code } = error;
@@ -99,6 +87,7 @@ const deleteImageByID = async (req, res) => {
     }
   }
 };
+
 module.exports = {
   getAllImages,
   getImageByID,

@@ -1,3 +1,5 @@
+const fs = require("fs");
+// fs.writeFile(process.cwd() + "/test.txt", "Hello world", (err) => {});
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");

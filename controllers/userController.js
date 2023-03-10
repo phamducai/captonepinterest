@@ -86,8 +86,63 @@ const getDetailUserbyID = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { email, password, name, age, avatar } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const updateUser = await model.users.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        email: email,
+        name: name,
+        age: age,
+        avatar: avatar,
+        password: hashedPassword,
+      },
+    });
+    delete updateUser.password;
+    successCode(res, updateUser, "update user successfully");
+  } catch (error) {
+    const { code } = error;
+    if (code === "P2025") {
+      return errorCode(res, "user not found");
+    }
+    return errorCode(res, "update user failed");
+  }
+};
+const uploadAvatar = async (req, res) => {
+  let { id } = req.params;
+  let fs = require("fs");
+  fs.readFile(
+    process.cwd() + "/public/img/" + req.file.filename,
+    async (err, data) => {
+      let fileName = `"data:${req.file.mimetype};base64,${Buffer.from(
+        data
+      ).toString("base64")}"`;
+      //delete file server
+      fs.unlinkSync(process.cwd() + "/public/img/" + req.file.filename);
+
+      console.log(fileName);
+      const updateUser = await model.users.update({
+        where: {
+          id: +id,
+        },
+        data: {
+          avatar: fileName,
+        },
+      });
+      res.status(200).send(updateUser);
+    }
+  );
+};
+
 module.exports = {
   login,
   register,
   getDetailUserbyID,
+  updateUser,
+  uploadAvatar,
 };
