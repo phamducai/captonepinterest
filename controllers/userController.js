@@ -118,22 +118,29 @@ const updateUser = async (req, res) => {
 };
 const uploadAvatar = async (req, res) => {
   let { id } = req.params;
-  console.log(req.file);
-  const fileData = await readFileAsync(
-    process.cwd() + "/public/img/" + req.file.filename
-  );
-  const fileName = `data:${req.file.mimetype};base64,${Buffer.from(
-    fileData
-  ).toString("base64")}`;
+  try {
+    const fileData = await readFileAsync(
+      process.cwd() + "/public/img/" + req.file.filename
+    );
+    const fileName = `data:${req.file.mimetype};base64,${Buffer.from(
+      fileData
+    ).toString("base64")}`;
 
-  // delete file server
-  await unlinkAsync(process.cwd() + "/public/img/" + req.file.filename);
+    // delete file server
+    await unlinkAsync(process.cwd() + "/public/img/" + req.file.filename);
 
-  const updateUser = await model.users.update({
-    where: { id: +id },
-    data: { avatar: fileName },
-  });
-  res.status(200).send(updateUser);
+    const updateUser = await model.users.update({
+      where: { id: +id },
+      data: { avatar: fileName },
+    });
+    return successCode(res, updateUser, "update avatar successfully");
+  } catch (error) {
+    const { code } = error;
+    if (code === "P2025") {
+      return errorCode(res, "user not found");
+    }
+    errorCode(res, "backend error");
+  }
 };
 
 module.exports = {
