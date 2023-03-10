@@ -9,7 +9,8 @@ const {
   deleteImageByID,
 } = require("../controllers/imageController");
 
-imageRoute.get("", verifyToken, getAllImages);
+// imageRoute.get("", verifyToken, getAllImages);
+imageRoute.get("", getAllImages);
 imageRoute.get("/:id", getImageByID);
 imageRoute.get("/name/:name", getImageByName);
 imageRoute.get("/getImageByUserID/:id", getImageByUserID);
