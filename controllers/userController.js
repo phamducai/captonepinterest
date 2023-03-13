@@ -10,32 +10,14 @@ const unlinkAsync = util.promisify(fs.unlink);
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    // const result = await prisma.image.findMany({
-    //   select: {
-    //     id: true,
-    //     user_id: true,
-    //     image_name: true,
-    //     users: {
-    //       select: {
-    //         email: true,
-    //       },
-    //     },
-    //   },
-    //   where: {
-    //     users: {
-    //       id: {
-    //         equals: image.user_id,
-    //       },
-    //     },
-    //   },
-    // });
-
     let checkUser = await model.users.findUnique({
       where: { email },
     });
+    console.log(checkUser)
     if (!!checkUser) {
       let checkPass = bcrypt.compareSync(password, checkUser.password);
       if (checkPass) {
+        delete checkUser.avatar
         let token = createToken(checkUser);
         return successCode(res, token, "Login successfully completed");
       } else {
@@ -117,7 +99,10 @@ const updateUser = async (req, res) => {
   }
 };
 const uploadAvatar = async (req, res) => {
+console.log(req.file)
+    
   let { id } = req.params;
+  console.log(id)
   try {
     const fileData = await readFileAsync(
       process.cwd() + "/public/img/" + req.file.filename
@@ -135,6 +120,7 @@ const uploadAvatar = async (req, res) => {
     });
     return successCode(res, updateUser, "update avatar successfully");
   } catch (error) {
+    console.log(error)
     const { code } = error;
     if (code === "P2025") {
       return errorCode(res, "user not found");

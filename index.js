@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("."));
 
-app.use("/api", rootRouter);
+app.use("/api",rootRouter);
 
 app.listen(3003, () => {
   console.log("listening on port 3003");

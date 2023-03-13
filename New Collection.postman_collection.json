@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "c791d041-51aa-4846-bc85-498d58dfd20f",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25756673"
+	},
+	"item": [
+		{
+			"name": "SaveImage",
+			"item": [
+				{
+					"name": "getImageByIdSave",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3003/api/saveimage/getImageByIdSave/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"saveimage",
+								"getImageByIdSave",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImageByUserIdSave",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"email\":\"phamducai14233423@gmail.com\",\r\n\"password\":\"123\",\r\n\"name\":\"phamduai\",\r\n\"age\":28,\r\n\"avatar\":\"huhu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3003/api/users/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZW50Ijp7ImlkIjoxMywiZW1haWwiOiJwaGFtZHVjYWkyMzM0MjNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkL0s4dVZQbXV4MjhpbXdiczJOb3ptZTY4eHE5ZGJaM1dxZVF5eVRDOEpnSHhJb3lJVzUzQ2kiLCJuYW1lIjoicGhhbWR1YWkiLCJhZ2UiOjI4LCJhdmF0YXIiOiJodWh1In0sImlhdCI6MTY3ODM1NTc5MCwiZXhwIjoxNjc4MDU2NTgzfQ.DZI2Og9Z8XbH_Ow9e8He-izwMwuxFHSeQUfnD96U3MQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"phamducai233423@gmail.com\",\r\n     \"password\":\"123\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3003/api/users/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getdetailbyid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3003/api/users/detail/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"users",
+								"detail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadavatar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/mrbac/Downloads/anh-dep-viet-nam-25.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3003/api/users/upload/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"users",
+								"upload",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{      \"email\": \"dmm@gmial.com\",\r\n      \"name\": \"$2b$10$yKHpbMa0nmtz4OOG.DhymenlZKG4Y8qG6mhuB4GnH3mysH7YF5ARe\",\r\n      \"age\": 28,\r\n      \"avatar\": \"avatar\",\r\n      \"password\": \"$2b$10$yKHpbMa0nmtz4OOG.DhymenlZKG4Y8qG6mhuB4GnH3mysH7YF5ARe\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3003/api/users/4",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "image",
+			"item": [
+				{
+					"name": "Allimage",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb250ZW50Ijp7ImlkIjoxMywiZW1haWwiOiJwaGFtZHVjYWkyMzM0MjNAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkL0s4dVZQbXV4MjhpbXdiczJOb3ptZTY4eHE5ZGJaM1dxZVF5eVRDOEpnSHhJb3lJVzUzQ2kiLCJuYW1lIjoicGhhbWR1YWkiLCJhZ2UiOjI4LCJhdmF0YXIiOiJodWh1In0sImlhdCI6MTY3ODM1NTk4OSwiZXhwIjoxNjc4MzU1OTkwfQ.4qK7zzjDzd9C7biINGlyzJ6X5y2TrjDvq-8rS2Kbx8w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3003/api/image",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImageByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3003/api/image/name/ya",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"image",
+								"name",
+								"ya"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImageByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3003/api/image/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"image",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getImageByUserID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3003/api/image/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"image",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "getCommentByImageID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3003/api/comment/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"comment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "postComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":1 ,\"image_id\":1,\"content\":\"yasuo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3003/api/comment",
+							"host": [
+								"localhost"
+							],
+							"port": "3003",
+							"path": [
+								"api",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

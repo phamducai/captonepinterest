@@ -9,11 +9,12 @@ const {
 } = require("../controllers/userController");
 
 const upload = require("../upload/index");
-userRoute.post("/upload/:id", upload.single("file"), uploadAvatar);
+const { verifyToken } = require("../util/jwttoken");
+userRoute.post("/upload/:id", upload.single("file"),verifyToken, uploadAvatar);
 
 userRoute.post("/login", login);
 userRoute.post("/register", register);
-userRoute.get("/detail/:id", getDetailUserbyID);
-userRoute.put("/:id", updateUser);
+userRoute.get("/detail/:id", verifyToken,getDetailUserbyID);
+userRoute.put("/:id", verifyToken,updateUser);
 
 module.exports = userRoute;
